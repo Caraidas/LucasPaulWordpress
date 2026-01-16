@@ -1,0 +1,39 @@
+name: WordPress CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  validate:
+    name: Validation Docker & Kubernetes
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Installer Docker Compose
+        run: |
+          docker compose version
+
+      - name: Valider docker-compose
+        run: |
+          docker compose config
+
+      - name: Installer Kompose
+        run: |
+          curl -L https://github.com/kubernetes/kompose/releases/download/v1.32.0/kompose-linux-amd64 -o kompose
+          chmod +x kompose
+          sudo mv kompose /usr/local/bin/
+
+      - name: Générer manifests Kubernetes
+        run: |
+          mkdir -p stack
+          kompose convert -o stack/
+
+      - name: Validation YAML
+        run: |
+          sudo apt install -y yamllint
+          yamllint stack/
