@@ -1,0 +1,36 @@
+# =========================
+# Secrets & credentials
+# =========================
+.env
+*.env
+secrets.yaml
+**/secrets*.yaml
+
+# =========================
+# Fichiers générés (CI/CD)
+# =========================
+kompose/
+*.zip
+
+# =========================
+# Python
+# =========================
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# =========================
+# Tests & rapports
+# =========================
+.pytest_cache/
+.coverage
+htmlcov/
+
+# =========================
+# OS / IDE
+# =========================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
